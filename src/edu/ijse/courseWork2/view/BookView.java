@@ -4,17 +4,25 @@
  */
 package edu.ijse.courseWork2.view;
 
+import edu.ijse.courseWork2.controller.BookController;
+import edu.ijse.courseWork2.dto.BookDto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Isuru Manchanayake
  */
 public class BookView extends javax.swing.JFrame {
 
+    private BookController bookController;
+
     /**
      * Creates new form BookView
      */
     public BookView() {
         initComponents();
+        bookController = new BookController();
+        loadTable();
     }
 
     /**
@@ -47,7 +55,7 @@ public class BookView extends javax.swing.JFrame {
         jButtonUpdate = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
         jScrollPaneBook = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableBook = new javax.swing.JTable();
 
         jLabelBookName1.setText("Book Name");
 
@@ -100,7 +108,7 @@ public class BookView extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableBook.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -111,7 +119,7 @@ public class BookView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPaneBook.setViewportView(jTable1);
+        jScrollPaneBook.setViewportView(jTableBook);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,7 +218,7 @@ public class BookView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
-        // TODO add your handling code here:
+        saveBook();
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
@@ -270,7 +278,7 @@ public class BookView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelPublisher;
     private javax.swing.JLabel jLabelQty;
     private javax.swing.JScrollPane jScrollPaneBook;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableBook;
     private javax.swing.JTextField jTextFieldAuthor;
     private javax.swing.JTextField jTextFieldBookId;
     private javax.swing.JTextField jTextFieldBookName;
@@ -280,4 +288,46 @@ public class BookView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPublisher;
     private javax.swing.JTextField jTextFieldQty;
     // End of variables declaration//GEN-END:variables
+
+    private void saveBook() {
+          try {
+              BookDto dto = new BookDto(jTextFieldBookId.getText(),
+                      jTextFieldBookName.getText(),
+                      jTextFieldAuthor.getText(),
+                      jTextFieldPublisher.getText(),
+                      jTextFieldPubYear.getText(),
+                      jTextFieldCateID.getText(),
+                      Integer.parseInt(jTextFieldQty.getText()));
+              
+              String resp = bookController.save(dto);
+              
+              JOptionPane.showMessageDialog(this, resp);
+              clearForm();
+              loadTable();
+            
+        } catch (Exception e) {
+              JOptionPane.showMessageDialog(this, "Error at save data");
+              clearForm();
+        }
+    
+    }
+
+    private void clearForm() {
+       jTextFieldBookId.setText(" ");
+       jTextFieldBookName.setText(" ");
+       jTextFieldAuthor.setText(" ");
+       jTextFieldPubYear.setText(" ");
+       jTextFieldPubYear.setText(" ");
+       jTextFieldCateID.setText(" ");
+       jTextFieldQty.setText(" ");
+    
+    }
+
+    private void loadTable() {
+        try {
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error at loading Data to item table");
+        }
+    }
 }
