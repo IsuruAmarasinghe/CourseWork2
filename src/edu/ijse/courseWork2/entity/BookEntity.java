@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package edu.ijse.courseWork2.dto;
+package edu.ijse.courseWork2.entity;
 
 /**
  *
  * @author Isuru Manchanayake
  */
-public class BookDto {
-    private String bookID;
+public class BookEntity {
+     private String bookID;
     private String bookName;
     private String author;
     private String publisher;
@@ -17,10 +17,10 @@ public class BookDto {
     private String categoryID;
     private int qty;
 
-    public BookDto() {
+    public BookEntity() {
     }
 
-    public BookDto(String bookID, String bookName, String author, String publisher, int publicationYear, String categoryID, int qty) {
+    public BookEntity(String bookID, String bookName, String author, String publisher, int publicationYear, String categoryID, int qty) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.author = author;
@@ -130,8 +130,9 @@ public class BookDto {
 
     @Override
     public String toString() {
-        return "BookDto{" + "bookID=" + bookID + ", bookName=" + bookName + ", author=" + author + ", publisher=" + publisher + ", publicationYear=" + publicationYear + ", categoryID=" + categoryID + ", qty=" + qty + '}';
+        return "BookEntity{" + "bookID=" + bookID + ", bookName=" + bookName + ", author=" + author + ", publisher=" + publisher + ", publicationYear=" + publicationYear + ", categoryID=" + categoryID + ", qty=" + qty + '}';
     }
 
    
+    
 }

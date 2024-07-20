@@ -5,6 +5,8 @@
 package edu.ijse.courseWork2;
 
 import edu.ijse.courseWork2.view.BookView;
+import edu.ijse.courseWork2.view.CategoryView;
+import edu.ijse.courseWork2.view.MemberView;
 
 /**
  *
@@ -15,8 +17,10 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        new BookView().setVisible(true);
+    public static void main(String[] args) throws Exception {
+      // new BookView().setVisible(true);
+     //  new MemberView().setVisible(true);
+         new CategoryView().setVisible(true);
     }
     
 }

@@ -5,6 +5,8 @@
 package edu.ijse.courseWork2.controller;
 
 import edu.ijse.courseWork2.dto.BookDto;
+import edu.ijse.courseWork2.service.ServiceFactory;
+import edu.ijse.courseWork2.service.custom.BookService;
 import java.util.ArrayList;
 
 /**
@@ -13,23 +15,26 @@ import java.util.ArrayList;
  */
 public class BookController {
     
+    private BookService bookService = (BookService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.BOOK);
+    
+    
      public String save(BookDto bookDto)throws Exception{
-       return null;
+       return bookService.save(bookDto);
     }
      
       public String update(BookDto bookDto)throws Exception{
-       return null;
+       return bookService.update(bookDto);
     }
     
     public String delete(String bookID)throws Exception{
-       return null;
+       return bookService.delete(bookID);
     }
     
      public ArrayList<BookDto>getAll()throws Exception{
-      return null;
+      return bookService.getAll();
     }
     
-    public BookDto get(String itemCode)throws Exception{
-      return null;
+    public BookDto get(String bookID)throws Exception{
+      return bookService.get(bookID);
     }
 }

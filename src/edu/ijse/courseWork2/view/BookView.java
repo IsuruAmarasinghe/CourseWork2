@@ -6,7 +6,9 @@ package edu.ijse.courseWork2.view;
 
 import edu.ijse.courseWork2.controller.BookController;
 import edu.ijse.courseWork2.dto.BookDto;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,7 +21,7 @@ public class BookView extends javax.swing.JFrame {
     /**
      * Creates new form BookView
      */
-    public BookView() {
+    public BookView() throws Exception {
         initComponents();
         bookController = new BookController();
         loadTable();
@@ -65,21 +67,35 @@ public class BookView extends javax.swing.JFrame {
         jLabelBook.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabelBook.setForeground(new java.awt.Color(0, 0, 153));
         jLabelBook.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelBook.setText("SCIENCE LIBRARY - BOOK");
+        jLabelBook.setText("SCIENCE LIBRARY - BOOKS STORE");
 
         jLabelBookID.setText("Book ID");
 
+        jTextFieldBookId.setBackground(new java.awt.Color(255, 255, 204));
+
         jLabelBookName.setText("Book Name");
+
+        jTextFieldBookName.setBackground(new java.awt.Color(255, 255, 204));
 
         jLabelAuthor.setText("Author");
 
+        jTextFieldAuthor.setBackground(new java.awt.Color(255, 255, 204));
+
         jLabelPublisher.setText("Publisher");
+
+        jTextFieldPublisher.setBackground(new java.awt.Color(255, 255, 204));
 
         jLabelPublishYear.setText("Publication Year");
 
+        jTextFieldPubYear.setBackground(new java.awt.Color(255, 255, 204));
+
         jLabelCateID.setText("Category ID");
 
+        jTextFieldCateID.setBackground(new java.awt.Color(255, 255, 204));
+
         jLabelQty.setText("Qty");
+
+        jTextFieldQty.setBackground(new java.awt.Color(255, 255, 204));
 
         jButtonSave.setBackground(new java.awt.Color(153, 255, 153));
         jButtonSave.setForeground(new java.awt.Color(102, 0, 102));
@@ -119,6 +135,11 @@ public class BookView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableBook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableBookMouseClicked(evt);
+            }
+        });
         jScrollPaneBook.setViewportView(jTableBook);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,8 +231,8 @@ public class BookView extends javax.swing.JFrame {
                     .addComponent(jButtonUpdate)
                     .addComponent(jButtonDelete))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPaneBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPaneBook, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 19, Short.MAX_VALUE))
         );
 
         pack();
@@ -222,12 +243,16 @@ public class BookView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        // TODO add your handling code here:
+        updateBook();
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        // TODO add your handling code here:
+        CancelBook();
     }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jTableBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBookMouseClicked
+        searchBook();
+    }//GEN-LAST:event_jTableBookMouseClicked
 
     /**
      * @param args the command line arguments
@@ -295,7 +320,7 @@ public class BookView extends javax.swing.JFrame {
                       jTextFieldBookName.getText(),
                       jTextFieldAuthor.getText(),
                       jTextFieldPublisher.getText(),
-                      jTextFieldPubYear.getText(),
+                      Integer.parseInt(jTextFieldPubYear.getText()),
                       jTextFieldCateID.getText(),
                       Integer.parseInt(jTextFieldQty.getText()));
               
@@ -316,7 +341,7 @@ public class BookView extends javax.swing.JFrame {
        jTextFieldBookId.setText(" ");
        jTextFieldBookName.setText(" ");
        jTextFieldAuthor.setText(" ");
-       jTextFieldPubYear.setText(" ");
+       jTextFieldPublisher.setText(" ");
        jTextFieldPubYear.setText(" ");
        jTextFieldCateID.setText(" ");
        jTextFieldQty.setText(" ");
@@ -325,9 +350,85 @@ public class BookView extends javax.swing.JFrame {
 
     private void loadTable() {
         try {
+            String columns[]={"Book ID","Book Name","Author","Publisher","Publish Year", "Category ID", "QtyOnHand"};
+           DefaultTableModel dtm=new DefaultTableModel(columns,0){
+               @Override
+              public boolean isCellEditable(int row, int column){
+                 return false;
+              }
+           };
+           jTableBook.setModel(dtm);
+           
+           ArrayList<BookDto>bookDtos = bookController.getAll();
+           for(BookDto dto : bookDtos){
+             Object[] rowData = {
+                 dto.getBookID(),
+                 dto.getBookName(),
+                 dto.getAuthor(),
+                 dto.getPublisher(),
+                 dto.getPublicationYear(),
+                 dto.getCategoryID(),
+                 dto.getQty()};
+             dtm.addRow(rowData);
+           }
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error at loading Data to item table");
+            JOptionPane.showMessageDialog(this, "Error at loading Data to books table");
         }
     }
+
+    private void searchBook() {
+        try {
+       String bookID = jTableBook.getValueAt(jTableBook.getSelectedRow(), 0).toString();
+       BookDto dto=bookController.get(bookID);
+       
+       if(dto != null){
+          jTextFieldBookId.setText(dto.getBookID());
+          jTextFieldBookName.setText(dto.getBookName());
+          jTextFieldAuthor.setText(dto.getAuthor());
+          jTextFieldPublisher.setText(dto.getPublisher());
+          jTextFieldPubYear.setText(Integer.toString(dto.getPublicationYear()));
+          jTextFieldCateID.setText(dto.getCategoryID());
+          jTextFieldQty.setText(Integer.toString(dto.getQty()));
+       }else{
+          JOptionPane.showMessageDialog(this, "Item not found");
+       }
+     } catch (Exception e) {
+         JOptionPane.showMessageDialog(this, "Error at loading Item");
+     }
+ }
+    
+     
+     private void updateBook(){
+    try {
+      BookDto bookDto=new BookDto(jTextFieldBookId.getText(),jTextFieldBookName.getText(),jTextFieldAuthor.getText(),
+              jTextFieldPublisher.getText(),Integer.parseInt(jTextFieldPubYear.getText()), jTextFieldCateID.getText(),
+              Integer.parseInt(jTextFieldQty.getText()));
+          String resp = bookController.update(bookDto);
+           // System.out.println(resp);
+            JOptionPane.showMessageDialog(this, resp);
+            loadTable();
+            clearForm();
+            
+        } catch (Exception ex) {
+           // Logger.getLogger(ItemView.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(this, "Error at update data");
+           clearForm();
+           
+        }
+      
+     }
+
+    private void CancelBook() {
+        try {
+         String bookID = jTextFieldBookId.getText();
+         String resp = bookController.delete(bookID);
+         JOptionPane.showMessageDialog(this, resp);
+            clearForm();
+            loadTable();
+         
+     } catch (Exception e) {
+         JOptionPane.showMessageDialog(this, "Error at Cancel Item");
+     }
+ }
 }
