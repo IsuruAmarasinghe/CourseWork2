@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @author Isuru Manchanayake
  */
 public class BCategoryServiceImpl implements BCategoryService{
-    private BCategoryDao bCategoryDao = (BCategoryDao) DaoFactory.getInstance().getDao(DaoFactory.DaoTypes.BOOK);
+    private BCategoryDao bCategoryDao = (BCategoryDao) DaoFactory.getInstance().getDao(DaoFactory.DaoTypes.BOOKCATEGORY);
 
     @Override
     public String save(BCategoryDto bCategoryDto) throws Exception {

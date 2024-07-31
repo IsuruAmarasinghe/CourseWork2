@@ -57,10 +57,10 @@ public class MemberDaoImpl implements MemberDao{
                    rst.getString("memberID"),
                    rst.getString("memberName"),
                    rst.getString("DOB"),
-                   rst.getString("phoneNumber"),
                    rst.getString("address"),
+                   rst.getString("phoneNumber"),
                    rst.getString("membershipDate"),
-                   rst.getString(" membershipExpireDate"));
+                   rst.getString("membershipExpireDate"));
              return entity;
         }
         return null;
@@ -79,7 +79,7 @@ public class MemberDaoImpl implements MemberDao{
                    rst.getString("address"),
                    rst.getString("phoneNumber"),
                    rst.getString("membershipDate"),
-                   rst.getString(" membershipExpireDate"));
+                   rst.getString("membershipExpireDate"));
         
        memberEntitys.add(entity);
     }

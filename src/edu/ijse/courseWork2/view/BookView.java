@@ -61,7 +61,7 @@ public class BookView extends javax.swing.JFrame {
 
         jLabelBookName1.setText("Book Name");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 255));
 
         jLabelBook.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -325,6 +325,7 @@ public class BookView extends javax.swing.JFrame {
                       Integer.parseInt(jTextFieldQty.getText()));
               
               String resp = bookController.save(dto);
+              System.out.println(resp);
               
               JOptionPane.showMessageDialog(this, resp);
               clearForm();
@@ -401,8 +402,13 @@ public class BookView extends javax.swing.JFrame {
      
      private void updateBook(){
     try {
-      BookDto bookDto=new BookDto(jTextFieldBookId.getText(),jTextFieldBookName.getText(),jTextFieldAuthor.getText(),
-              jTextFieldPublisher.getText(),Integer.parseInt(jTextFieldPubYear.getText()), jTextFieldCateID.getText(),
+      BookDto bookDto=new BookDto(
+              jTextFieldBookId.getText(),
+              jTextFieldBookName.getText(),
+              jTextFieldAuthor.getText(),
+              jTextFieldPublisher.getText(),
+              Integer.parseInt(jTextFieldPubYear.getText()),
+              jTextFieldCateID.getText(),
               Integer.parseInt(jTextFieldQty.getText()));
           String resp = bookController.update(bookDto);
            // System.out.println(resp);
@@ -423,12 +429,13 @@ public class BookView extends javax.swing.JFrame {
         try {
          String bookID = jTextFieldBookId.getText();
          String resp = bookController.delete(bookID);
+            System.out.println("Delete");
          JOptionPane.showMessageDialog(this, resp);
             clearForm();
             loadTable();
          
      } catch (Exception e) {
-         JOptionPane.showMessageDialog(this, "Error at Cancel Item");
+         JOptionPane.showMessageDialog(this, "Error at Cancel Book");
      }
  }
 }

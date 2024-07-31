@@ -6,6 +6,7 @@ package edu.ijse.courseWork2.view;
 
 import edu.ijse.courseWork2.controller.BCategoryController;
 import edu.ijse.courseWork2.dto.BCategoryDto;
+import edu.ijse.courseWork2.view.UserLoginView;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -46,7 +47,7 @@ public class CategoryView extends javax.swing.JFrame {
         jBtnDelete = new javax.swing.JButton();
         jBtnUpdate = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Category Form");
         setBackground(new java.awt.Color(255, 255, 153));
 
@@ -72,6 +73,11 @@ public class CategoryView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableCategoryMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableCategory);
 
         jBtnSave.setBackground(new java.awt.Color(255, 102, 102));
@@ -104,27 +110,26 @@ public class CategoryView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLCatId, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextCatId, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(jLCatName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextCatName, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(jBtnSave)
-                        .addGap(64, 64, 64)
-                        .addComponent(jBtnDelete)
-                        .addGap(63, 63, 63)
-                        .addComponent(jBtnUpdate)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addComponent(jLCatId, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextCatId, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLCatName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextCatName, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(jBtnSave)
+                .addGap(82, 82, 82)
+                .addComponent(jBtnDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtnUpdate)
+                .addGap(74, 74, 74))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,30 +141,34 @@ public class CategoryView extends javax.swing.JFrame {
                     .addComponent(jTextCatId, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLCatName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextCatName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnSave)
                     .addComponent(jBtnDelete)
                     .addComponent(jBtnUpdate))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDeleteActionPerformed
-        // TODO add your handling code here:
+       deleteCategory();
     }//GEN-LAST:event_jBtnDeleteActionPerformed
 
     private void jBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnUpdateActionPerformed
-        // TODO add your handling code here:
+        updateCategory();
     }//GEN-LAST:event_jBtnUpdateActionPerformed
 
     private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
         saveCategory();
     }//GEN-LAST:event_jBtnSaveActionPerformed
+
+    private void jTableCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoryMouseClicked
+       searchCategory();
+    }//GEN-LAST:event_jTableCategoryMouseClicked
 
     /**
      * @param args the command line arguments
@@ -211,11 +220,11 @@ public class CategoryView extends javax.swing.JFrame {
 
     private void saveCategory() {
        try {
-              BCategoryDto dto = new BCategoryDto(
+              BCategoryDto bCategoryDto = new BCategoryDto(
                      jTextCatId.getText(),
                      jTextCatName.getText());
               
-              String resp = bCategoryController.save(dto);
+              String resp = bCategoryController.save(bCategoryDto);
               
               JOptionPane.showMessageDialog(this, resp);
               clearForm();
@@ -258,4 +267,50 @@ public class CategoryView extends javax.swing.JFrame {
         }
     }
 
+    private void updateCategory() {
+        try {
+            BCategoryDto bCategoryDto = new BCategoryDto(jTextCatId.getText(), jTextCatName.getText());
+            String resp = bCategoryController.update(bCategoryDto);
+            JOptionPane.showMessageDialog(this, resp);
+            loadTable();
+            clearForm();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error at update data");
+            clearForm();
+        }
+    
+    }
+
+    private void deleteCategory() {
+        try {
+            String categoryId = jTextCatId.getText();
+            String resp = bCategoryController.delete(categoryId);
+            JOptionPane.showMessageDialog(this, resp);
+            loadTable();
+            clearForm();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error at delete Category");
+        }
+    }
+
+    private void searchCategory() {
+         try {
+       String categoryId = jTableCategory.getValueAt(jTableCategory.getSelectedRow(), 0).toString();
+       BCategoryDto dto=bCategoryController.get(categoryId);
+       
+       if(dto != null){
+          jTextCatId.setText(dto.getCategoryId());
+          jTextCatName.setText(dto.getCategoryName());
+          
+       }else{
+          JOptionPane.showMessageDialog(this, "Category not found");
+       }
+     } catch (Exception e) {
+         JOptionPane.showMessageDialog(this, "Error at loading Category");
+     }
+ }
+
+  
 }

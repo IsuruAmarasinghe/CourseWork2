@@ -4,8 +4,11 @@
  */
 package edu.ijse.courseWork2.dao;
 
+import edu.ijse.courseWork2.dao.custom.impl.BCategoryDaoImpl;
 import edu.ijse.courseWork2.dao.custom.impl.BookDaoImpl;
 import edu.ijse.courseWork2.dao.custom.impl.MemberDaoImpl;
+import edu.ijse.courseWork2.dao.custom.impl.ReturnBookDaoImpl;
+import edu.ijse.courseWork2.dao.custom.impl.TransactionDaoImpl;
 
 /**
  *
@@ -30,7 +33,11 @@ public class DaoFactory {
             case MEMBER:
                 return new MemberDaoImpl();
             case BOOKCATEGORY:
-                return null;
+                return new BCategoryDaoImpl();
+            case TRANSACTION:
+                return new TransactionDaoImpl();
+            case RETURNBOOK:
+                return new ReturnBookDaoImpl();
             
             default:
                 return null;
@@ -39,7 +46,7 @@ public class DaoFactory {
     
     
     public enum DaoTypes{
-      BOOK,MEMBER,BOOKCATEGORY;
+      BOOK,MEMBER,BOOKCATEGORY,TRANSACTION,RETURNBOOK;
     }
     
 }

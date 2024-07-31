@@ -17,8 +17,8 @@ public class BCategoryController {
     private BCategoryService bCategoryService = (BCategoryService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.BOOKCATEGORY);
     
     
-    public String save(BCategoryDto bCategoryDto)throws Exception{
-       return bCategoryService.save(bCategoryDto);
+    public String save(BCategoryDto dCategoryDto)throws Exception{
+       return bCategoryService.save(dCategoryDto);
     }
      
       public String update(BCategoryDto bCategoryDto)throws Exception{

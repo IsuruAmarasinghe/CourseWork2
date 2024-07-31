@@ -25,9 +25,9 @@ public class BookDaoImpl implements BookDao{
 
     @Override
     public boolean update(BookEntity t) throws Exception {
-        return CrudUtil.executeUpdate("UPDATE book SET bookName=?, author=?, publisher=?,  publicationYear=?,  categoryID=?, qtyOnHand=?  WHERE bookID=?",
-                 t.getBookID(), t.getBookName(), t.getAuthor(), t.getPublisher(), t.getPublicationYear(), t.getCategoryID(),
-                t.getQty());
+        return CrudUtil.executeUpdate("UPDATE book SET bookName=?,  author=?, publisher=?,  publicationYear=?,  categoryID=?, qtyOnHand=?  WHERE bookID=?",
+                  t.getBookName(), t.getAuthor(), t.getPublisher(), t.getPublicationYear(), t.getCategoryID(),
+                t.getQty(), t.getBookID());
     }
 
     @Override

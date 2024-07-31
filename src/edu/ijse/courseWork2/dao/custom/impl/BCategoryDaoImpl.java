@@ -24,7 +24,7 @@ public class BCategoryDaoImpl implements BCategoryDao{
     @Override
     public boolean update(BCategoryEntity t) throws Exception {
         return CrudUtil.executeUpdate("UPDATE bookCategory SET categoryName=? WHERE categoryId=?",
-                t.getCategoryId(), t.getCategoryName());
+                t.getCategoryName(), t.getCategoryId());
     }
 
     @Override

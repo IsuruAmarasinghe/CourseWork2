@@ -4,8 +4,11 @@
  */
 package edu.ijse.courseWork2.service;
 
+import edu.ijse.courseWork2.service.custom.impl.BCategoryServiceImpl;
 import edu.ijse.courseWork2.service.custom.impl.BookServiceImpl;
 import edu.ijse.courseWork2.service.custom.impl.MemberServiceImpl;
+import edu.ijse.courseWork2.service.custom.impl.ReturnBookServiceImpl;
+import edu.ijse.courseWork2.service.custom.impl.TransactionServiceImpl;
 
 /**
  *
@@ -31,7 +34,11 @@ public class ServiceFactory {
             case MEMBER:
                 return new MemberServiceImpl();
             case BOOKCATEGORY:
-                return null;
+                return new BCategoryServiceImpl();
+            case TRANSACTION:
+                return new TransactionServiceImpl();
+            case RETURNBOOK:
+                return new ReturnBookServiceImpl();
             default:
                return null;
         }
@@ -40,6 +47,6 @@ public class ServiceFactory {
     
     
     public enum ServiceType{
-       BOOK,MEMBER,BOOKCATEGORY;
+       BOOK,MEMBER,BOOKCATEGORY,TRANSACTION,RETURNBOOK;
     }
 }
